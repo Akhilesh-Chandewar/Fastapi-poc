@@ -53,6 +53,16 @@ async def order_status():
         ]
     }
 
+@app.get("/debug/request-info")
+async def debug_request_info(request: Request):
+    """Debug endpoint that returns information about the incoming request."""
+    return {
+        "method": request.method,
+        "url": str(request.url),
+        "headers": dict(request.headers),
+        "path_params": request.path_params,
+        "query_params": dict(request.query_params),
+    }
 
 if __name__ == "__main__":
     uvicorn.run("01_fastapi_foundation:app", host="0.0.0.0", port=8000, reload=True)
